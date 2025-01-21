@@ -159,14 +159,14 @@ void loop()
     tapTempo.update(clockState == HIGH);
   }
 
-  beat_t4 = tapTempo.beatProgress(4.0) * 0.125;
-  beat_t2 = tapTempo.beatProgress(2.0) * 0.5;
+  beat_t4 = tapTempo.beatProgress(0.25) * 4.0;
+  beat_t2 = tapTempo.beatProgress(0.5) * 2.0;
   beat = tapTempo.beatProgress();
-  beat_d2 = tapTempo.beatProgress(0.5) * 2;
-  beat_d3 = tapTempo.beatProgress(0.333333) * 3;
-  beat_d4 = tapTempo.beatProgress(0.25) * 4;
-  beat_d8 = tapTempo.beatProgress(0.125) * 8;
-  beat_d16 = tapTempo.beatProgress(0.0625) * 16;
+  beat_d2 = tapTempo.beatProgress(2.0) * 0.5;
+  beat_d3 = tapTempo.beatProgress(3.0) * 0.333333;
+  beat_d4 = tapTempo.beatProgress(4.0) * 0.25;
+  beat_d8 = tapTempo.beatProgress(8.0) * 0.125;
+  beat_d16 = tapTempo.beatProgress(16.0) * 0.0625;
 
   // OUTPUTS
 
