@@ -122,6 +122,8 @@ void setup()
 
   pinMode(RESET, INPUT);
   pinMode(CLOCK, INPUT);
+
+  tapTempo.resetTapChain();
 }
 
 void loop()
@@ -160,30 +162,43 @@ void loop()
   }
 
   beat_t4 = tapTempo.beatProgress(0.25) * 4.0;
-  beat_t2 = tapTempo.beatProgress(0.5) * 2.0;
-  beat = tapTempo.beatProgress();
-  beat_d2 = tapTempo.beatProgress(2.0) * 0.5;
-  beat_d3 = tapTempo.beatProgress(3.0) * 0.333333;
-  beat_d4 = tapTempo.beatProgress(4.0) * 0.25;
-  beat_d8 = tapTempo.beatProgress(8.0) * 0.125;
-  beat_d16 = tapTempo.beatProgress(16.0) * 0.0625;
-
-  // OUTPUTS
-
-  writeOnChange(LED, &ledState, clockState == HIGH || !paused && beat < gate);
 
   writeOnChange(TIMES_4, &times4State, !paused && beat_t4 < gate);
+
+  beat_t2 = tapTempo.beatProgress(0.5) * 2.0;
+
   writeOnChange(TIMES_2, &times2State, !paused && beat_t2 < gate);
+
+  beat = tapTempo.beatProgress();
+
   writeOnChange(TIMES_1, &times1State, !paused && beat < gate);
+  writeOnChange(TIMES_1_OFF, &times1OffsetState, !paused && fmod(beat + offset, 1.0) < gate);
+
+  beat_d2 = tapTempo.beatProgress(2.0) * 0.5;
+
   writeOnChange(DIV_2, &div2State, !paused && beat_d2 < gate);
+  writeOnChange(DIV_2_OFF, &div2OffsetState, !paused && fmod(beat_d2 + offset, 1.0) < gate);
+
+  beat_d3 = tapTempo.beatProgress(3.0) * 0.333333;
+
   writeOnChange(DIV_3, &div3State, !paused && beat_d3 < gate);
+
+  beat_d4 = tapTempo.beatProgress(4.0) * 0.25;
+
   writeOnChange(DIV_4, &div4State, !paused && beat_d4 < gate);
+  writeOnChange(DIV_4_OFF, &div4OffsetState, !paused && fmod(beat_d4 + offset, 1.0) < gate);
+
+  beat_d8 = tapTempo.beatProgress(8.0)* 0.125;
+
   writeOnChange(DIV_8, &div8State, !paused && beat_d8 < gate);
+  writeOnChange(DIV_8_OFF, &div8OffsetState, !paused && fmod(beat_d8 + offset, 1.0) < gate);
+
+  beat_d16 = tapTempo.beatProgress(16.0) * 0.0625;
+
   writeOnChange(DIV_16, &div16State, !paused && beat_d16 < gate);
 
-  writeOnChange(LED_OFF, &ledOffsetState, !paused && fmod(beat + offset, 1.0) < gate);
-  writeOnChange(TIMES_1_OFF, &times1OffsetState, !paused && fmod(beat + offset, 1.0) < gate);
-  writeOnChange(DIV_2_OFF, &div2OffsetState, !paused && fmod(beat_d2 + offset, 1.0) < gate);
-  writeOnChange(DIV_4_OFF, &div4OffsetState, !paused && fmod(beat_d4 + offset, 1.0) < gate);
-  writeOnChange(DIV_8_OFF, &div8OffsetState, !paused && fmod(beat_d8 + offset, 1.0) < gate);
+  // LEDS
+
+  writeOnChange(LED, &ledState, clockState == HIGH || !paused && beat_t4 < gate);
+  writeOnChange(LED_OFF, &ledOffsetState, !paused && fmod(beat_t4 + offset, 1.0) < gate);
 }
