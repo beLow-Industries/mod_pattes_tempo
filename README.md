@@ -1,7 +1,7 @@
 # 🐈 Pattes Tempo
 
 Tap-Tempo module for an arduino nano
-
+Manual : https://local-archeology-8e0.notion.site/PattesTempo-User-Manual-e0cf838ff7f44b3fac7d215c57a958ff?source=copy_link
 ## Pinout
 
 | Pin | I/O | Type    | Usage                           |
